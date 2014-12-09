@@ -17,7 +17,7 @@ class appTest():
         """ init """
         
     #检查是否连接
-    def connectionDevice(self):
+    def connectDevice(self):
         try:
             devices = os.popen('adb devices').read()
             device = re.findall('device', devices)
@@ -58,8 +58,7 @@ class appTest():
             os.popen("adb shell pm clear %s" + packname)
         except Exception,e:
             print e            
-   
-            
+           
     #获取当前终端中的进程ID
     def getPID(self):
         try:
@@ -227,7 +226,7 @@ if __name__=="__main__":
 
     myApp.getPID()
     myApp.getCurrentPackages()
-    myApp.connectionDevice()    
+    myApp.connectDevice()    
     myApp.startApp(packNameStartActivity)
     myApp.getSendData()
     myApp.getReceiveData()
@@ -238,4 +237,3 @@ if __name__=="__main__":
     #myApp.getDumpsysMeminfo(meminfo,'TOTAL',fileMeminfo)
     #myApp.getDumpsysCpuinfo(cpufinfo,'ctrip.android.view',fileCpuinfo)
     #print myApp.getCurrentTime()
-  
