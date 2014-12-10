@@ -68,7 +68,8 @@ class appTest():
                 result = re.search('ctrip.android.view', reList)
                 #print reList
                 if result != None :
-                    PID="100"+str(reList[4:6])
+                    tmp=reList.split().pop(0)
+                    PID="100"+str(tmp[4:])
                     #print PID
                     return PID
                     break
@@ -116,13 +117,23 @@ class appTest():
                 reList = re.sub('package:','',package)
                 reList = reList.replace('\n','')
                 result = re.search('ctrip.android.view', reList)
-                #print reList
-                #if result == None :
-                    #print "result:No"
-                #else:
-                    #print "result:Yes"
-                filepackageinfo.write(reList)
-                filepackageinfo.write("\n")
+                str(reList[4:6])
+        except Exception,e:
+            print e
+
+    #获取当前电量
+    def getCurrentBattery(self):
+        try:
+            for Battery in os.popen('adb shell dumpsys battery','r').readlines():
+                reList = re.sub('Battery:','',Battery)
+                reList = reList.replace('\n','')
+                result = re.search('level', reList)
+                if result != None :
+                    List = reList.split()
+                    level=List.pop()#删除第i个元素，并返回这个元素。若调用pop()则删除最后一个元素
+                    print "battery level " + level + "%"
+                    return level
+                    break
         except Exception,e:
             print e
 
@@ -230,6 +241,7 @@ if __name__=="__main__":
     myApp.startApp(packNameStartActivity)
     myApp.getSendData()
     myApp.getReceiveData()
+    myApp.getCurrentBattery()
     fileFlowinfo.close()
     filepackageinfo.close()
 
