@@ -69,8 +69,13 @@ class appTest():
                 #print reList
                 if result != None :
                     tmp=reList.split().pop(0)
-                    PID="100"+str(tmp[4:])
-                    #print PID
+                    if int(tmp[4:]) < 10 :
+                        PID="1000"+str(tmp[4:])
+                    if  9 < int(tmp[4:]) < 100 :
+                        PID="100"+str(tmp[4:])
+                    if 99 < int(tmp[4:]) < 1000 :
+                        PID="10"+str(tmp[4:])                      
+                    print PID
                     return PID
                     break
         except Exception,e:
