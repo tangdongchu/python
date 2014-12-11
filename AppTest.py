@@ -1,9 +1,8 @@
 ﻿#coding=utf-8
-
 '''
 Create on 2014-12-9
 python 2.7 for window
-@auther: tangdongchu
+@author: tangdongchu
 '''
 import os
 import re
