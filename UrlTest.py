@@ -1,4 +1,4 @@
-#!/user/bin/env python
+﻿#!/user/bin/env python
 #coding=utf-8
 import urllib
 import urllib2
@@ -9,13 +9,13 @@ import io,gzip
 import os
 
 class url_request():
-#初始化cookie opener headlers,默认headlers为android Nexus 4
+    #初始化cookie opener headlers,默认headlers为android Nexus 4
     def __init__(self):
         """Constructor"""
         self.cookie_jar = cookielib.CookieJar()
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
         self.headlers = {'User-Agent' : 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'}
-     #test_LBSLocateCity        
+      
     def send_post(self,url):
         reload(sys)
         sys.setdefaultencoding('utf8')
