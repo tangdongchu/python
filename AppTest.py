@@ -1,7 +1,7 @@
-#coding=utf-8
+﻿#coding=utf-8
 
 '''
-Created on 2014-12-9
+Create on 2014-12-9
 python 2.7 for window
 @auther: tangdongchu
 '''
