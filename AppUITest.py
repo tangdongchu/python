@@ -1,4 +1,4 @@
-#coding=UTF-8
+﻿#coding=UTF-8
 '''
 Create on 2014-12-11
 python 2.7 for window
@@ -55,9 +55,7 @@ else:
     #获取输入框，输入账号密码
     textfields = driver.find_elements_by_class_name("textfield")
     textfields[0].send_keys("wwwwww")
-    driver.find_element_by_class_name("image").click()
-    textfields[0].send_keys("wwwwww")
-    textfields[1].send_keys("good08")
+    textfields[1].send_keys("www")
         
     driver.find_element_by_class_name("android.widget.Button").click()
     time.sleep(2)        
