@@ -1,74 +1,88 @@
 ﻿#!/user/bin/env python
 #coding=utf-8
-import urllib
-import urllib2
-import sys
-import cookielib
-import time
-import io,gzip
-import os
+import requests
+import json
 
 class url_request():
-    #初始化cookie opener headlers,默认headlers为android Nexus 4
     def __init__(self):
-        """Constructor"""
-        self.cookie_jar = cookielib.CookieJar()
-        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
-        self.headlers = {'User-Agent' : 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'}
-      
-    def send_post(self,url):
-        reload(sys)
-        sys.setdefaultencoding('utf8')
-        #设置请求参数
-        parameters = {'CountryName':'xx',
-                      'ProvinceName':'xx',
-                      'L1CityName':'xx',
-                      'L2CityName':'x',
-                      'TownName':'xx',
-                      'Longitude':'xx',
-                      'Latitude':'xx',
-                      'Language':'xx'
-                      }
-        #格式化
-        mydata = urllib.urlencode(parameters)
-        mydata = mydata.encode('utf-8')
-        #拼接请求体
-        req = urllib2.Request(url,data=mydata)
-        #增加header
-        self.set_add_headers(req)
-        #请求
-        reqp = self.opener.open(req)
-        #打印返回值
-        print str(reqp.code) #200、404、503等
-        print str(reqp.msg) #对应200、404、503，成功、找不到页面等等
-        print '%s' % reqp.readlines()
-
-        #buf = io.BytesIO(reqp.read())
-        #f = gzip.GzipFile(fileobj=buf)
-        #data2 = f.read().decode('utf-8')
-        #print "response:%s" % data2
-   
-        
-    def set_add_headers(self,req):
-        req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
-        req.add_header('User-Agent', 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
-        req.add_header('Accept-Encoding', 'gzip,deflate,sdch')
-        req.add_header('Accept-Language', 'zh-CN,zh;q=0.8,en;q=0.6')
-   
+            """ init """    
 
 if __name__=='__main__':
-    myRequest = url_request()
-    #urls = open('sourceUrl.txt','r')
-    #fileSuc = open('urlSuc.txt','w')
-    #fileFai = open('urlFai.txt','w')
-    #urls.seek(0)
-    #post
-    #myRequest.sendPost(urls,fileSuc,fileFai)
-    #get
-    #myRequest.send_get(urls,fileSuc,fileFai)
-    #url = ' '
-    URL = ' '
-    #myRequest.test_Send_Post(url,fileFai)
-    #调用send_post方法，传入URL
-    myRequest.send_post(URL)
-    #myRequest.closeFile()
+
+    #get类型
+    #r = requests.get('https://github.com/timeline.json')
+    #post类型
+    #r = requests.post("http://httpbin.org/post")
+    #put类型
+    #r = requests.put("http://httpbin.org/put")
+    #delete类型
+    #r = requests.delete("http://httpbin.org/delete")
+    #head类型
+    #r = requests.head("http://httpbin.org/get")
+    #options类型
+    #r = requests.options("http://httpbin.org/get")
+    #打印返回值，也可以用r.text
+    #print r.content
+    
+    #URL传递参数，示例为http://m.ctrip.com/webapp/tourvisa/visa_list?salecityid=2&keyword=日本
+    #payload = {'keyword': '日本', 'salecityid': '2'}
+    #r = requests.get("http://m.ctrip.com/webapp/tourvisa/visa_list", params=payload) 
+    #print r.url
+    
+    #json处理
+    #r = requests.get('https://github.com/timeline.json')
+    #print r.json()
+    
+    #定制请求头
+    #url = 'http://m.ctrip.com'
+    #headers = {'User-Agent' : 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'}
+    #r = requests.post(url, headers=headers)
+    
+    '''
+    url = 'https://api.github.com/some/endpoint'
+    payload = {'some': 'data'}
+    headers = {'content-type': 'application/json'}
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    '''
+    
+    #响应状态码
+    #r = requests.get('http://httpbin.org/get')
+    #print r.status_code
+    
+    #响应头
+    #r = requests.get('http://m.ctrip.com')
+    #print r.headers
+    #print r.headers['Content-Type']
+    #print r.headers.get('content-type')
+    
+    #Cookies
+    #url = 'http://example.com/some/cookie/setting/url'
+    #r = requests.get(url)
+    #r.cookies['example_cookie_name']    读取cookies
+    
+    #url = 'http://httpbin.org/cookies'
+    #cookies = dict(cookies_are='working')
+    #r = requests.get(url, cookies=cookies) 发送cookies
+    #print r.text    
+    
+    
+    #复杂post请求
+    
+    headers = {'User-Agent' : 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'}
+    payload = {'CountryName':'中国',
+               'ProvinceName':'陕西省',
+               'L1CityName':'汉中',
+               'L2CityName':'城固',
+               'TownName':'',
+               'Longitude':'107.33393',
+               'Latitude':'33.157131',
+               'Language':'CN'
+               }
+    r = requests.post("http://ws.mobile.uat.qa.nt.ctripcorp.com/CityLocation/json/LBSLocateCity",headers=headers,data=payload)
+    #r.encoding = 'utf-8'
+    data=r.json()
+    print r.text
+    if r.status_code!=200:
+        print "LBSLocateCity API Error " + str(r.status_code)
+    print data['CityEntities'][0]['CityID']
+    print data['ResponseStatus']['Ack']
